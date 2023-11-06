@@ -10,10 +10,10 @@ Link to docker image: https://hub.docker.com/repository/docker/daviddiener/trump
 
 ## Setup Application
 
-Build and test the application inside docker. Running the app on your local node installation will fail becasuse of the depencndy to dockers /dev/shm/ drive, which we will use to maintain the shared counter.
+Build and test the application inside docker.
 
 ```
-npm run docker:all
+npm run docker:dev
 ```
 
 ## Deploy in Minikube

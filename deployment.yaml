@@ -31,16 +31,39 @@ spec:
           image: daviddiener/trumpf_assessment
           ports:
             - containerPort: 3000
-          volumeMounts:
-            - mountPath: /dev/shm
-              name: cache-volume
           imagePullPolicy: Always
-          resources:
-              limits:
-                cpu: 500m
-              requests:
-                cpu: 200m
-      volumes:
-      - name: cache-volume
-        hostPath:
-          path: /dev/shm
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-trumpf
+spec:
+  selector:
+    app: mongodb-trumpf
+  ports:
+    - port: 27017
+      targetPort: 27017
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-trumpf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb-trumpf
+  template:
+    metadata:
+      labels:
+        app: mongodb-trumpf
+    spec:
+      containers:
+        - name: mongodb-trumpf
+          image: mongo:latest
+          ports:
+            - containerPort: 27017

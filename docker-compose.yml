@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  trumpf_assessment:
+    build: .
+    ports:
+      - 80:3000
+    depends_on:
+      - mongodb_trumpf
+  mongodb_trumpf:
+    image: mongo
+    container_name: mongodb_trumpf
+    ports:
+      - 27017:27017
