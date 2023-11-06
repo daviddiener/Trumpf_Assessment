@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: trumpf-assessment
+spec:
+  selector:
+    app: trumpf-assessment
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: LoadBalancer
+  
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trumpf-assessment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: trumpf-assessment
+  template:
+    metadata:
+      labels:
+        app: trumpf-assessment
+    spec:
+      containers:
+        - name: trumpf-assessment
+          image: daviddiener/trumpf_assessment
+          ports:
+            - containerPort: 3000
+          volumeMounts:
+            - mountPath: /dev/shm
+              name: cache-volume
+          imagePullPolicy: Always
+          resources:
+              limits:
+                cpu: 500m
+              requests:
+                cpu: 200m
+      volumes:
+      - name: cache-volume
+        hostPath:
+          path: /dev/shm
