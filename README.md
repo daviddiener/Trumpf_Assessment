@@ -3,7 +3,7 @@
 Link to docker image: https://hub.docker.com/repository/docker/daviddiener/trumpf_assessment/general
 
 ## Objectives
--  Set up a simple application that can increment and retrieve a shared counter.
+- Set up a simple application that can increment and retrieve a shared counter.
 - Containerize this application using Docker.
 - Deploy multiple instances of this application on Minikube.
 - Use a Kubernetes service as a load balancer to distribute traffic amongst the instances.
